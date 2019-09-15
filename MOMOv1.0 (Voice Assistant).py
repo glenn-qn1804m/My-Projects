@@ -311,7 +311,6 @@ def functions():
         print("What is/Search for/Tell me about (anything)")
         print("Time/Day/Date")
         print("joke")
-        print("game")
         print("Where is (any location)")
         print("Goodbye/Shutdown/Bye")
         print("___________________________________________________\n")
