@@ -1,13 +1,12 @@
+#Imported Libraries
 #system
 import os
 import subprocess
 import re
-
 #date and time
 import time
 import datetime
 from datetime import date
-
 #utilitize
 import playsound
 import speech_recognition as sr
@@ -16,6 +15,7 @@ import random
 #web
 import webbrowser
 
+#Talk, convert text to speech
 def speak(text):
     print(f'Momo: {text}\n')
     tts = gTTS(text=text, lang="en")
@@ -25,7 +25,7 @@ def speak(text):
     os.remove(filename)
 
 #listen for commands
-
+#Convert speech to text
 def myCommand():
     r = sr.Recognizer()
     with sr.Microphone() as source:
@@ -176,12 +176,14 @@ def functions():
         time.sleep(1)
         speak("You're Welcome")
 
-#Web Browser
+#Open Web Browser
+#Open any websites
     #Open YouTube
     elif 'youtube' in text:
         speak("Opening YouTube")
         webbrowser.open('https://www.youtube.com')
 
+    #Search for any videos on YouTube    
     elif "videos on" in text:
         reg_ex = re.search("videos on (.*)", text)
         if reg_ex:
@@ -197,7 +199,7 @@ def functions():
         speak("Closing Google Chrome")
         os.system("TASKKILL /F /IM chrome.exe")
 
-
+    #Open any website
     elif 'open' in text:
         reg_ex = re.search('open (.+)', text)
         if reg_ex:
@@ -209,7 +211,7 @@ def functions():
         else:
             pass
 
-    #location
+#location of anywhere
     elif "where is" in text:
         reg_ex = re.search("where is (.*)", text)
         if reg_ex:
@@ -217,12 +219,13 @@ def functions():
             speak(f"This is the location of {location}")
             webbrowser.open(f"https://www.google.com/maps/place/{location}")
 
-    #news
+#get news
     elif "news" in text:
         speak("This is the news by straitstimes")
         webbrowser.open("https://www.straitstimes.com/")
 
-#Applications
+#Application
+    #Launch any Applications
     elif 'launch' in text:
         reg_ex = re.search("launch (.*)", text)
         if reg_ex:
@@ -238,7 +241,7 @@ def functions():
                 os.startfile(paths[0])
             except IndexError:
                 speak(f"Could not find {app}")
-
+    #Close any application
     elif "close" in text:
         reg_ex = re.search("close (.*)", text)
         if reg_ex:
@@ -246,12 +249,13 @@ def functions():
             speak(f"Closing {close_app}")
             os.system(f"TASKKILL /F /IM {close_app}.exe")
 
-    #time
+#Time and Date
+    #get time
     elif "time" in text:
         now = datetime.datetime.now()
         speak('The time now is %d hours %d minutes' % (now.hour, now.minute))
 
-    #date
+    #get date
     elif "date" in text:
         today = date.today()
         months = ['blank', 'January', 'February', 'March', 'April', 'May',
@@ -259,13 +263,14 @@ def functions():
         month = months[today.month]
         speak(f"The date is {today.day} {month} {today.year}")
 
-    #day of the week
+    #get day of the week
     elif 'day' in text:
         x = date.today()
         day = x.strftime('%A')
         speak(f"Today is {day}")
 
-    #wikipedia
+#wikipedia
+    #look up anything on wikipedia
     elif "what is" in text:
         reg_ex = re.search("what is (.*)", text)
         if reg_ex:
@@ -295,7 +300,8 @@ def functions():
     elif "shut down" in text:
         speak("Shutting down.")
         exit()
-
+        
+#List commands available
     elif "list commands" in text:
         speak("This is the list of commands")
         print("___________________________________________________")
