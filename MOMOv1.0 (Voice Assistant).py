@@ -285,11 +285,6 @@ def functions():
             webbrowser.open(f"https://en.wikipedia.org/wiki/{topic}")
             speak(f"This is what I have found about {topic}")
 
-
-    elif "game" in text:
-        speak("Let's play Rock Paper Scissors!")
-        play_game()
-
     #stop
     elif "goodbye" in text:
         speak("Goodbye!")
