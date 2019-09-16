@@ -17,13 +17,14 @@ import webbrowser
 
 # Talk, convert text to speech
 def speak(text):
-    print(f'Momo: {text}\n')
+    print(f'MOMO: {text}\n')
     engine = pyttsx3.init()
     engine.setProperty('rate', 150)
     en_voice_id = "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_ZIRA_11.0"
     engine.setProperty('voice', en_voice_id)
     engine.say(text)
     engine.runAndWait()
+    engine.stop()
 
 
 # listen for commands
@@ -154,8 +155,7 @@ def functions():
         elif num == 2:
             speak("I asked my French friend if she likes to play video games. She said, Wii.")
         elif num == 3:
-            speak(
-                "I was going to make myself a belt made out of watches, but then I realized it would be a waist of time.")
+            speak("I was going to make myself a belt made out of watches, but then I realized it would be a waist of time.")
         elif num == 4:
             speak("What do you call a bee that can’t make up its mind? A Maybe")
         elif num == 5:
@@ -293,6 +293,14 @@ def functions():
             webbrowser.open(f"https://en.wikipedia.org/wiki/{topic}")
             speak(f"This is what I have found about {topic}")
 
+    #Dictionary
+    elif "definition of" in text:
+        reg_ex = re.search("definition of (.*)", text)
+        if reg_ex:
+            word = reg_ex.group(1)
+            webbrowser.open(f"https://www.oxfordlearnersdictionaries.com/definition/english/test_1?q={word}")
+            speak(f"This is the definition of {word}")
+
     # stop
     elif "goodbye" in text:
         speak("Goodbye!")
@@ -308,9 +316,9 @@ def functions():
     elif "list commands" in text:
         speak("This is the list of commands")
         print("___________________________________________________\nList of Commands\n___________________________________________________")
-        print("Hello\nOpen (any website)\nWhat is/Search for/Tell me about (anything)\nTime/Day/Date\njoke\nWhere is (any location)\nGoodbye/Shutdown/Stop"
+        print("Hello\njoke\nOpen (any website)\nLaunch (any application)\nWhat is/Search for/Tell me about (anything)\nTime/Day/Date\n\nWhere is (any location)\nDefinition of (anything)\nGoodbye/Shutdown/Stop"
               "\n___________________________________________________\n")
 
-print("How may I assist you?")
+print("How may I assist you? -MOMOv1.1")
 while True:
     functions()
